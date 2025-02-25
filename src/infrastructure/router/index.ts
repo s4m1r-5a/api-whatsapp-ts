@@ -25,4 +25,8 @@ function loadRouter(file: string): void {
 
 readdirSync(PATH_ROUTES).filter((file) => loadRouter(file));
 
+// // Importar manualmente la nueva ruta:
+// import { router as sessionRouter } from "./session.route";
+// router.use("/session", sessionRouter);
+
 export default router;

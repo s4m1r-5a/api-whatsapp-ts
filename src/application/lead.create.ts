@@ -1,13 +1,13 @@
-import LeadExternal from "../domain/lead-external.repository";
-import LeadRepository from "../domain/lead.repository";
+import LeadExternal from "../domain/lead-external.repository"; // Importa LeadExternal
+import LeadRepository from "../domain/lead.repository"; // Importa LeadRepository
 
 export class LeadCreate {
-  private leadRepository: LeadRepository;
-  private leadExternal: LeadExternal;
+  private leadRepository: LeadRepository; // Repositorio de Lead
+  private leadExternal: LeadExternal; // Servicio externo de Lead
   constructor(respositories: [LeadRepository, LeadExternal]) {
-    const [leadRepository, leadExternal] = respositories;
-    this.leadRepository = leadRepository;
-    this.leadExternal = leadExternal;
+    const [leadRepository, leadExternal] = respositories; // Desestructura los repositorios
+    this.leadRepository = leadRepository; // Establece el repositorio de Lead
+    this.leadExternal = leadExternal; // Establece el servicio externo de Lead
   }
 
   public async sendMessageAndSave({
@@ -17,8 +17,8 @@ export class LeadCreate {
     message: string;
     phone: string;
   }) {
-    const responseDbSave = await this.leadRepository.save({ message, phone });//TODO DB
-    const responseExSave = await this.leadExternal.sendMsg({ message, phone });//TODO enviar a ws
-    return {responseDbSave, responseExSave};
+    const responseDbSave = await this.leadRepository.save({ message, phone }); // Guarda el Lead en la base de datos
+    const responseExSave = await this.leadExternal.sendMsg({ message, phone }); // Envía el mensaje a través del servicio externo
+    return {responseDbSave, responseExSave}; // Retorna las respuestas
   }
 }
